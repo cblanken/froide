@@ -18,6 +18,7 @@ class DocumentConfig(AppConfig):
         from froide.api import api_router
         from froide.helper.search import search_registry
         from froide.searchalert import alert_registry
+        from filingcabinet.api_views import DocumentPortalViewSet
 
         from .alert import DocumentAlertConfiguration
         from .api_views import (
@@ -31,6 +32,9 @@ class DocumentConfig(AppConfig):
         alert_registry.register(DocumentAlertConfiguration())
 
         api_router.register(r"document", DocumentViewSet, basename="document")
+        api_router.register(
+            r"documentportal", DocumentPortalViewSet, basename="documentportal"
+        )
         api_router.register(
             r"documentcollection",
             DocumentCollectionViewSet,

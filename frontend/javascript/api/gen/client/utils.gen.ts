@@ -12,9 +12,8 @@ import { getUrl } from '../core/utils.gen'
 import type { Client, ClientOptions, Config, RequestOptions } from './types.gen'
 
 export const createQuerySerializer = <T = unknown>({
-  allowReserved,
-  array,
-  object
+  parameters = {},
+  ...args
 }: QuerySerializerOptions = {}) => {
   const querySerializer = (queryParams: T) => {
     const search: string[] = []
@@ -26,29 +25,31 @@ export const createQuerySerializer = <T = unknown>({
           continue
         }
 
+        const options = parameters[name] || args
+
         if (Array.isArray(value)) {
           const serializedArray = serializeArrayParam({
-            allowReserved,
+            allowReserved: options.allowReserved,
             explode: true,
             name,
             style: 'form',
             value,
-            ...array
+            ...options.array
           })
           if (serializedArray) search.push(serializedArray)
         } else if (typeof value === 'object') {
           const serializedObject = serializeObjectParam({
-            allowReserved,
+            allowReserved: options.allowReserved,
             explode: true,
             name,
             style: 'deepObject',
             value: value as Record<string, unknown>,
-            ...object
+            ...options.object
           })
           if (serializedObject) search.push(serializedObject)
         } else {
           const serializedPrimitive = serializePrimitiveParam({
-            allowReserved,
+            allowReserved: options.allowReserved,
             name,
             value: value as string
           })
@@ -213,7 +214,7 @@ export const mergeHeaders = (
           mergedHeaders.append(key, v as string)
         }
       } else if (value !== undefined) {
-        // assume object headers are meant to be JSON stringified, i.e. their
+        // assume object headers are meant to be JSON stringified, i.e., their
         // content value in OpenAPI specification is 'application/json'
         mergedHeaders.set(
           key,
@@ -227,8 +228,10 @@ export const mergeHeaders = (
 
 type ErrInterceptor<Err, Res, Req, Options> = (
   error: Err,
-  response: Res,
-  request: Req,
+  /** response may be undefined due to a network error where no response object is produced */
+  response: Res | undefined,
+  /** request may be undefined, because error may be from building the request object itself */
+  request: Req | undefined,
   options: Options
 ) => Err | Promise<Err>
 

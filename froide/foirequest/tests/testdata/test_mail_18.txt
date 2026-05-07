@@ -1,0 +1,196 @@
+Return-Path: <Markus.Mustermann@stadt.example.de>
+X-Original-To: foimail@fragdenstaat.de
+Delivered-To: foimail@fragdenstaat.de
+Authentication-Results: mail.fragdenstaat.de;
+	dkim=pass (2048-bit key; unprotected) header.d=stadt.example.de header.i=@stadt.example.de header.a=rsa-sha256 header.s=key1 header.b=wNOxg4a1;
+	dkim-atps=neutral
+Received: by mail.fragdenstaat.de (Postfix, from userid 131)
+	id 7DB6BA40006; Mon, 16 Mar 2026 10:13:26 +0100 (CET)
+X-Spam-Checker-Version: SpamAssassin 4.0.0 (2022-12-13) on brooke.okfn.de
+X-Spam-Level: **
+X-Spam-Status: No, score=2.0 required=5.0 tests=DKIM_SIGNED,DKIM_VALID,
+	DKIM_VALID_AU,HTML_MESSAGE,RCVD_IN_DNSWL_BLOCKED,
+	RCVD_IN_VALIDITY_CERTIFIED_BLOCKED,RCVD_IN_VALIDITY_RPBL_BLOCKED,
+	RCVD_IN_VALIDITY_SAFE_BLOCKED,RCVD_IN_ZEN_BLOCKED_OPENDNS,SPF_PASS,
+	URIBL_BLOCKED,URIBL_DBL_BLOCKED_OPENDNS autolearn=no
+	autolearn_force=no version=4.0.0
+Authentication-Results: OpenDMARC; dmarc=pass (p=none dis=none) header.from=stadt.example.de
+Authentication-Results: mail.fragdenstaat.de; spf=pass (sender SPF authorized) smtp.mailfrom=stadt.example.de (client-ip=194.0.94.40; helo=smtp1.kvnbw.de; envelope-from=Markus.Mustermann@stadt.example.de; receiver=fragdenstaat.de)
+Received: from smtp1.kvnbw.de (smtp1.kvnbw.de [194.0.94.40])
+	(using TLSv1.2 with cipher ECDHE-RSA-AES256-GCM-SHA384 (256/256 bits))
+	(No client certificate requested)
+	by mail.fragdenstaat.de (Postfix) with ESMTPS id CA354A40002
+	for <e.xample.deadbeef@fragdenstaat.de>; Mon, 16 Mar 2026 10:13:25 +0100 (CET)
+DKIM-Signature: v=1; a=rsa-sha256; c=relaxed/simple; d=stadt.example.de; h=
+	mime-version:content-type:content-type:content-language
+	:accept-language:in-reply-to:references:message-id:date:date
+	:subject:subject:from:from; s=key1; t=1773652405; bh=TtqKzMwK0qu
+	NnEdwQObkzbLfzO1BdIJwuwJ+hUKReyc=; b=wNOxg4a1clIiBEIVJwvHD6+Iums
+	5gNdHJ3h3lEh0CrY+cfj2ljVqXJxN2c0940Nqv3LA3bFLM/DzQNvCt0diIsEbZsh
+	R5J9bz9qcZOLWcxgjxS8vfIp/ZG4dA688vnshBPprPXA59apQySp+tmMpfE9aHxl
+	89UiLkZu4eoOTjhH6kjmrPueuT9er4UO6aGUEjJDIPWWpsx6s9Wud1xOO4x0zpo0
+	MSOB6hamMnld2MNu5DUnp4NQzURVmMfRKV7utxGPeuSmgboZPNwv0J4m34bg9j8x
+	Vvot2gO7XWEqECvHDgmdpkjuouhnHVN1zaArWsgz5EsUAH37deAuPtY4Uqw==
+Received: from mx02.stadt.intern (unknown [10.180.7.222])
+	by mxin2.kvnbw.net (Postfix) with ESMTPS
+	for <e.xample.deadbeef@fragdenstaat.de>; Mon, 16 Mar 2026 10:13:25 +0100 (CET)
+X-CSE-ConnectionGUID: i50xNcZYSQSOyQwAl0MkMQ==
+X-CSE-MsgGUID: IoxwiXIxRD+mxTm6zzsSrw==
+X-Ironport-Dmarc-Check-Result: validskip
+X-IronPort-AV: E=Sophos;i="6.23,123,1770591600"; 
+   d="scan'208,217";a="870488"
+X-Amp-Result: SKIPPED(no attachment in message)
+X-Amp-File-Uploaded: False
+Received: from exchange-02.stadt.intern ([10.180.7.212])
+  by mx02.stadt.intern with ESMTP; 16 Mar 2026 10:13:24 +0100
+Received: from EXCHANGE-04.stadt.intern (10.180.7.214) by
+ EXCHANGE-02.stadt.intern (10.180.7.212) with Microsoft SMTP Server
+ (version=TLS1_2, cipher=TLS_ECDHE_RSA_WITH_AES_256_GCM_SHA384) id
+ 15.2.2562.37; Mon, 16 Mar 2026 10:13:25 +0100
+Received: from EXCHANGE-04.stadt.intern ([fe80::ac3c:d3d1:17be:f73]) by
+ EXCHANGE-04.stadt.intern ([fe80::ac3c:d3d1:17be:f73%8]) with mapi id
+ 15.02.2562.037; Mon, 16 Mar 2026 10:13:24 +0100
+From: "Mustermann, Markus" <Markus.Mustermann@stadt.example.de>
+To: =?iso-8859-1?Q?Max_M=F6ster_=5B=23123456=5D?=
+	<e.xample.deadbeef@fragdenstaat.de>
+Subject: =?iso-8859-1?Q?AW:_Anfragenr._123456_Lizenzkosten_der_letzten_5_Jahre_f?=
+ =?iso-8859-1?Q?=FCr_alle_verwendeten_Microsoft-Produkte_[#123456]?=
+Thread-Topic: =?iso-8859-1?Q?Anfragenr._123456_Lizenzkosten_der_letzten_5_Jahre_f=FCr_a?=
+ =?iso-8859-1?Q?lle_verwendeten_Microsoft-Produkte_[#123456]?=
+Thread-Index: AQHcpK8kh/DpB9XCmEWugzHHPYh7DLWxAOoZ
+Date: Mon, 16 Mar 2026 09:13:24 +0000
+Message-ID: <b5kqslfrfcssejn41f1omh6n.1773652267477@email.citrix.com>
+References: <foimsg.123456.123456.123456@mail.fragdenstaat.de>
+In-Reply-To: <foimsg.123456.123456.123456@mail.fragdenstaat.de>
+Accept-Language: de-DE, en-US
+Content-Language: de-DE
+X-MS-Has-Attach:
+X-MS-TNEF-Correlator:
+Content-Type: multipart/alternative;
+	boundary="_000_b5kqslfrfcssejn41f1omh6n1773652267477emailcitrixcom_"
+MIME-Version: 1.0
+
+--_000_b5kqslfrfcssejn41f1omh6n1773652267477emailcitrixcom_
+Content-Type: text/plain; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+Sehr geehrter Herr M=F6ster,
+
+die Beantwortung Ihrer Anfrage wird sich leider noch etwas verz=F6gern. Uns=
+ liegen die daf=FCr notwendigen Informationen noch nicht vollst=E4ndig vor.
+
+Mit freundlichen Gr=FC=DFen
+Markus Mustermann
+________________________________
+Von: "Max M=F6ster [#123456]" <e.xample.deadbeef@fragdenstaat.de>
+Gesendet: Montag, 23. Februar 2026 11:28
+An: "Mustermann, Markus" <Markus.Mustermann@stadt.example.de>
+Betreff: AW: Anfragenr. 123456 Lizenzkosten der letzten 5 Jahre f=FCr alle =
+verwendeten Microsoft-Produkte [#123456]
+
+
+ACHTUNG: Externe E-Mail von e.xample.deadbeef@fragdenstaat.de <mailto:j=
+.worner.1.deadbeef@fragdenstaat.de> : Klicken Sie erst dann auf Links und=
+ Anh=E4nge, nachdem Sie die Vertrauensw=FCrdigkeit der Absenderadresse gepr=
+=FCft haben!
+
+
+Guten Tag Herr Mustermann,
+
+ich erkl=E4re mich bereit, die anfallenden Kosten zu ubernehmen und halte a=
+n der Anfrage fest.
+
+Mit freundlichen Gr=FC=DFen
+Max M=F6ster
+
+
+
+
+Anfragenr: 123456
+Antwort an: e.xample.deadbeef@fragdenstaat.de
+
+
+--
+Rechtshinweis: Diese E-Mail wurde =FCber den Webservice fragdenstaat.de ver=
+sendet. Antworten werden ggf. im Auftrag der Antragstellenden auf dem Inter=
+net-Portal ver=F6ffentlicht.
+Falls Sie Fragen dazu haben oder eine Idee, was f=FCr eine Anfrage bei Ihne=
+n im Haus notwendig w=E4re, besuchen Sie:
+https://fragdenstaat.de/fuer-behoerden/
+
+
+--_000_b5kqslfrfcssejn41f1omh6n1773652267477emailcitrixcom_
+Content-Type: text/html; charset="iso-8859-1"
+Content-Transfer-Encoding: quoted-printable
+
+<html>
+<head>
+<meta http-equiv=3D"Content-Type" content=3D"text/html; charset=3Diso-8859-=
+1">
+<meta name=3D"Generator" content=3D"Microsoft Exchange Server">
+<!-- converted from text --><style><!-- .EmailQuote { margin-left: 1pt; pad=
+ding-left: 4pt; border-left: #800000 2px solid; } --></style>
+</head>
+<body>
+<div>
+<div style=3D"font-family:Calibri,sans-serif">
+<div dir=3D"ltr">Sehr geehrter Herr M=F6ster,</div>
+<br>
+<div dir=3D"ltr">die Beantwortung Ihrer Anfrage wird sich leider noch etwas=
+ verz=F6gern. Uns liegen die daf=FCr notwendigen Informationen noch nicht v=
+ollst=E4ndig vor.</div>
+<br>
+<div dir=3D"ltr">Mit freundlichen Gr=FC=DFen</div>
+<div dir=3D"ltr">Markus Mustermann </div>
+<hr>
+<b>Von:</b> &quot;Max M=F6ster [#123456]&quot; &lt;e.xample.deadbeef@=
+fragdenstaat.de&gt;<br>
+<b>Gesendet:</b> Montag, 23. Februar 2026 11:28<br>
+<b>An:</b> &quot;Mustermann, Markus&quot; &lt;Markus.Mustermann@stadt.example.de&g=
+t;<br>
+<b>Betreff:</b> AW: Anfragenr. 123456 Lizenzkosten der letzten 5 Jahre f=FC=
+r alle verwendeten Microsoft-Produkte [#123456]<br>
+<br>
+<br>
+</div>
+</div>
+<font size=3D"2"><span style=3D"font-size:10pt;">
+<div class=3D"PlainText">ACHTUNG: Externe E-Mail von e.xample.deadbeef@=
+fragdenstaat.de &lt;<a href=3D"mailto:e.xample.deadbeef@fragdenstaat.de=
+">mailto:e.xample.deadbeef@fragdenstaat.de</a>&gt; : Klicken Sie erst d=
+ann auf Links und Anh=E4nge, nachdem Sie die
+ Vertrauensw=FCrdigkeit der Absenderadresse gepr=FCft haben!<br>
+<br>
+<br>
+Guten Tag Herr Mustermann,<br>
+<br>
+ich erkl=E4re mich bereit, die anfallenden Kosten zu ubernehmen und halte a=
+n der Anfrage fest.<br>
+<br>
+Mit freundlichen Gr=FC=DFen<br>
+Max M=F6ster<br>
+<br>
+<br>
+<br>
+<br>
+Anfragenr: 123456<br>
+Antwort an: e.xample.deadbeef@fragdenstaat.de<br>
+<br>
+<br>
+Postanschrift<br>
+Max M=F6ster<br>
+-- <br>
+Rechtshinweis: Diese E-Mail wurde =FCber den Webservice fragdenstaat.de ver=
+sendet. Antworten werden ggf. im Auftrag der Antragstellenden auf dem Inter=
+net-Portal ver=F6ffentlicht.<br>
+Falls Sie Fragen dazu haben oder eine Idee, was f=FCr eine Anfrage bei Ihne=
+n im Haus notwendig w=E4re, besuchen Sie:<br>
+<a href=3D"https://fragdenstaat.de/fuer-behoerden/">https://fragdenstaat.de=
+/fuer-behoerden/</a><br>
+<br>
+</div>
+</span></font>
+</body>
+</html>
+
+--_000_b5kqslfrfcssejn41f1omh6n1773652267477emailcitrixcom_--

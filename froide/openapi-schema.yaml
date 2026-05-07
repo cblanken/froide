@@ -890,6 +890,102 @@ paths:
               schema:
                 $ref: '#/components/schemas/DocumentCollection'
           description: ''
+  /api/v1/documentportal/:
+    get:
+      operationId: documentportal_list
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - csv
+          - json
+      - name: limit
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      - name: offset
+        required: false
+        in: query
+        description: The initial index from which to return the results.
+        schema:
+          type: integer
+      tags:
+      - documentportal
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedDocumentPortalList'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/PaginatedDocumentPortalList'
+          description: ''
+  /api/v1/documentportal/{id}/:
+    get:
+      operationId: documentportal_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - csv
+          - json
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this document portal.
+        required: true
+      tags:
+      - documentportal
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentPortal'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DocumentPortal'
+          description: ''
+  /api/v1/documentportal/oembed/:
+    get:
+      operationId: documentportal_oembed_retrieve
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - csv
+          - json
+      tags:
+      - documentportal
+      security:
+      - cookieAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DocumentPortal'
+            text/csv:
+              schema:
+                $ref: '#/components/schemas/DocumentPortal'
+          description: ''
   /api/v1/following/:
     get:
       operationId: following_list
@@ -2327,7 +2423,6 @@ paths:
         name: classification_id
         schema:
           type: integer
-          nullable: true
       - in: query
         name: format
         schema:
@@ -3954,6 +4049,61 @@ components:
       - site_url
       - slug
       - uid
+    DocumentPortal:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        resource_uri:
+          type: string
+          format: uri
+          readOnly: true
+        site_url:
+          type: string
+          readOnly: true
+        title:
+          type: string
+          maxLength: 250
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        document_count:
+          type: string
+          readOnly: true
+        document_directory_count:
+          type: string
+          readOnly: true
+        directories:
+          type: string
+          readOnly: true
+        documents:
+          type: string
+          readOnly: true
+        documents_uri:
+          type: string
+          readOnly: true
+        pages_uri:
+          type: string
+          readOnly: true
+        settings:
+          readOnly: true
+      required:
+      - created_at
+      - directories
+      - document_count
+      - document_directory_count
+      - documents
+      - documents_uri
+      - id
+      - pages_uri
+      - resource_uri
+      - settings
+      - site_url
+      - title
     FoiAttachment:
       type: object
       properties:
@@ -4330,6 +4480,9 @@ components:
           type: string
           format: uri
           readOnly: true
+        jurisdiction_name:
+          type: string
+          readOnly: true
         is_foi:
           type: boolean
           readOnly: true
@@ -4394,6 +4547,12 @@ components:
           readOnly: true
         status:
           $ref: '#/components/schemas/Status719Enum'
+        status_representation:
+          type: string
+          readOnly: true
+        readable_status:
+          type: string
+          readOnly: true
         public_body:
           allOf:
           - $ref: '#/components/schemas/PublicBody'
@@ -4418,6 +4577,12 @@ components:
         project:
           type: integer
           readOnly: true
+        project_site_url:
+          type: string
+          readOnly: true
+        project_request_count:
+          type: string
+          readOnly: true
         campaign:
           type: string
           format: uri
@@ -4439,13 +4604,17 @@ components:
       - id
       - is_foi
       - jurisdiction
+      - jurisdiction_name
       - last_message
       - last_modified_at
       - law
       - messages
       - project
+      - project_request_count
+      - project_site_url
       - public
       - public_body
+      - readable_status
       - redacted_description
       - reference
       - refusal_reason
@@ -4455,6 +4624,7 @@ components:
       - same_as_count
       - slug
       - status
+      - status_representation
       - tags
       - title
       - url
@@ -4509,6 +4679,9 @@ components:
         jurisdiction:
           type: string
           format: uri
+          readOnly: true
+        jurisdiction_name:
+          type: string
           readOnly: true
         is_foi:
           type: boolean
@@ -4573,6 +4746,12 @@ components:
           readOnly: true
         status:
           $ref: '#/components/schemas/Status719Enum'
+        status_representation:
+          type: string
+          readOnly: true
+        readable_status:
+          type: string
+          readOnly: true
         public_body:
           allOf:
           - $ref: '#/components/schemas/SimplePublicBody'
@@ -4597,6 +4776,12 @@ components:
         project:
           type: integer
           readOnly: true
+        project_site_url:
+          type: string
+          readOnly: true
+        project_request_count:
+          type: string
+          readOnly: true
         campaign:
           type: string
           format: uri
@@ -4615,12 +4800,16 @@ components:
       - id
       - is_foi
       - jurisdiction
+      - jurisdiction_name
       - last_message
       - last_modified_at
       - law
       - project
+      - project_request_count
+      - project_site_url
       - public
       - public_body
+      - readable_status
       - redacted_description
       - reference
       - refusal_reason
@@ -4630,6 +4819,7 @@ components:
       - same_as_count
       - slug
       - status
+      - status_representation
       - tags
       - title
       - url
@@ -4653,7 +4843,7 @@ components:
           pattern: ^[-a-zA-Z0-9_]+$
         kind:
           allOf:
-          - $ref: '#/components/schemas/KindCfdEnum'
+          - $ref: '#/components/schemas/KindDd3Enum'
           title: Kind of Region
         kind_detail:
           type: string
@@ -4714,7 +4904,7 @@ components:
           pattern: ^[-a-zA-Z0-9_]+$
         kind:
           allOf:
-          - $ref: '#/components/schemas/KindCfdEnum'
+          - $ref: '#/components/schemas/KindDd3Enum'
           title: Kind of Region
         kind_detail:
           type: string
@@ -4822,6 +5012,12 @@ components:
           type: string
           format: uri
           readOnly: true
+        region_kind:
+          type: string
+          readOnly: true
+        region_kind_detail:
+          type: string
+          readOnly: true
         last_modified_at:
           type: string
           format: date-time
@@ -4831,10 +5027,12 @@ components:
       - last_modified_at
       - name
       - region
+      - region_kind
+      - region_kind_detail
       - resource_uri
       - site_url
       - slug
-    KindCfdEnum:
+    KindDd3Enum:
       enum:
       - country
       - state
@@ -5103,6 +5301,29 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Document'
+    PaginatedDocumentPortalList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=400&limit=100
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?offset=200&limit=100
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/DocumentPortal'
     PaginatedFoiAttachmentList:
       type: object
       required:
@@ -5530,6 +5751,9 @@ components:
           type: string
           format: uri
           readOnly: true
+        jurisdiction_name:
+          type: string
+          readOnly: true
         is_foi:
           type: boolean
           readOnly: true
@@ -5593,6 +5817,12 @@ components:
           readOnly: true
         status:
           $ref: '#/components/schemas/Status719Enum'
+        status_representation:
+          type: string
+          readOnly: true
+        readable_status:
+          type: string
+          readOnly: true
         public_body:
           allOf:
           - $ref: '#/components/schemas/SimplePublicBody'
@@ -5616,6 +5846,12 @@ components:
           readOnly: true
         project:
           type: integer
+          readOnly: true
+        project_site_url:
+          type: string
+          readOnly: true
+        project_request_count:
+          type: string
           readOnly: true
         campaign:
           type: string
@@ -5847,7 +6083,8 @@ components:
           type: string
           maxLength: 255
         alternative_emails:
-          nullable: true
+          type: string
+          readOnly: true
         wikidata_item:
           type: string
           maxLength: 50
@@ -5856,6 +6093,7 @@ components:
           type: string
           readOnly: true
       required:
+      - alternative_emails
       - categories
       - classification
       - geo
@@ -5958,7 +6196,8 @@ components:
           type: string
           maxLength: 255
         alternative_emails:
-          nullable: true
+          type: string
+          readOnly: true
         wikidata_item:
           type: string
           maxLength: 50
@@ -5967,6 +6206,7 @@ components:
           type: string
           readOnly: true
       required:
+      - alternative_emails
       - categories
       - classification
       - geo

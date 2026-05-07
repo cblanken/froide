@@ -561,6 +561,78 @@ export const DocumentDetailSchema = {
   ]
 } as const
 
+export const DocumentPortalSchema = {
+  type: 'object',
+  properties: {
+    id: {
+      type: 'integer',
+      readOnly: true
+    },
+    resource_uri: {
+      type: 'string',
+      format: 'uri',
+      readOnly: true
+    },
+    site_url: {
+      type: 'string',
+      readOnly: true
+    },
+    title: {
+      type: 'string',
+      maxLength: 250
+    },
+    description: {
+      type: 'string'
+    },
+    created_at: {
+      type: 'string',
+      format: 'date-time',
+      readOnly: true
+    },
+    document_count: {
+      type: 'string',
+      readOnly: true
+    },
+    document_directory_count: {
+      type: 'string',
+      readOnly: true
+    },
+    directories: {
+      type: 'string',
+      readOnly: true
+    },
+    documents: {
+      type: 'string',
+      readOnly: true
+    },
+    documents_uri: {
+      type: 'string',
+      readOnly: true
+    },
+    pages_uri: {
+      type: 'string',
+      readOnly: true
+    },
+    settings: {
+      readOnly: true
+    }
+  },
+  required: [
+    'created_at',
+    'directories',
+    'document_count',
+    'document_directory_count',
+    'documents',
+    'documents_uri',
+    'id',
+    'pages_uri',
+    'resource_uri',
+    'settings',
+    'site_url',
+    'title'
+  ]
+} as const
+
 export const FoiAttachmentSchema = {
   type: 'object',
   properties: {
@@ -988,13 +1060,8 @@ export const FoiMessageSchema = {
 export const FoiMessageKindEnumSchema = {
   enum: ['email', 'post', 'fax', 'upload', 'phone', 'visit', 'import'],
   type: 'string',
-  description: `* \`email\` - email
-* \`post\` - postal mail
-* \`fax\` - fax
-* \`upload\` - upload
-* \`phone\` - phone call
-* \`visit\` - visit in person
-* \`import\` - automatically imported`
+  description:
+    '* `email` - email\n* `post` - postal mail\n* `fax` - fax\n* `upload` - upload\n* `phone` - phone call\n* `visit` - visit in person\n* `import` - automatically imported'
 } as const
 
 export const FoiMessageStatusEnumSchema = {
@@ -1008,13 +1075,8 @@ export const FoiMessageStatusEnumSchema = {
     'resolved'
   ],
   type: 'string',
-  description: `* \`awaiting_user_confirmation\` - Awaiting user confirmation
-* \`publicbody_needed\` - Public Body needed
-* \`awaiting_publicbody_confirmation\` - Awaiting Public Body confirmation
-* \`awaiting_response\` - Awaiting response
-* \`awaiting_classification\` - Request awaits classification
-* \`asleep\` - Request asleep
-* \`resolved\` - Request resolved`
+  description:
+    '* `awaiting_user_confirmation` - Awaiting user confirmation\n* `publicbody_needed` - Public Body needed\n* `awaiting_publicbody_confirmation` - Awaiting Public Body confirmation\n* `awaiting_response` - Awaiting response\n* `awaiting_classification` - Request awaits classification\n* `asleep` - Request asleep\n* `resolved` - Request resolved'
 } as const
 
 export const FoiRequestDetailSchema = {
@@ -1036,6 +1098,10 @@ export const FoiRequestDetailSchema = {
     jurisdiction: {
       type: 'string',
       format: 'uri',
+      readOnly: true
+    },
+    jurisdiction_name: {
+      type: 'string',
       readOnly: true
     },
     is_foi: {
@@ -1122,6 +1188,14 @@ export const FoiRequestDetailSchema = {
     status: {
       $ref: '#/components/schemas/Status719Enum'
     },
+    status_representation: {
+      type: 'string',
+      readOnly: true
+    },
+    readable_status: {
+      type: 'string',
+      readOnly: true
+    },
     public_body: {
       allOf: [
         {
@@ -1161,6 +1235,14 @@ export const FoiRequestDetailSchema = {
       type: 'integer',
       readOnly: true
     },
+    project_site_url: {
+      type: 'string',
+      readOnly: true
+    },
+    project_request_count: {
+      type: 'string',
+      readOnly: true
+    },
     campaign: {
       type: 'string',
       format: 'uri',
@@ -1187,13 +1269,17 @@ export const FoiRequestDetailSchema = {
     'id',
     'is_foi',
     'jurisdiction',
+    'jurisdiction_name',
     'last_message',
     'last_modified_at',
     'law',
     'messages',
     'project',
+    'project_request_count',
+    'project_site_url',
     'public',
     'public_body',
+    'readable_status',
     'redacted_description',
     'reference',
     'refusal_reason',
@@ -1203,6 +1289,7 @@ export const FoiRequestDetailSchema = {
     'same_as_count',
     'slug',
     'status',
+    'status_representation',
     'tags',
     'title',
     'url',
@@ -1274,6 +1361,10 @@ export const FoiRequestListSchema = {
     jurisdiction: {
       type: 'string',
       format: 'uri',
+      readOnly: true
+    },
+    jurisdiction_name: {
+      type: 'string',
       readOnly: true
     },
     is_foi: {
@@ -1356,6 +1447,14 @@ export const FoiRequestListSchema = {
     status: {
       $ref: '#/components/schemas/Status719Enum'
     },
+    status_representation: {
+      type: 'string',
+      readOnly: true
+    },
+    readable_status: {
+      type: 'string',
+      readOnly: true
+    },
     public_body: {
       allOf: [
         {
@@ -1395,6 +1494,14 @@ export const FoiRequestListSchema = {
       type: 'integer',
       readOnly: true
     },
+    project_site_url: {
+      type: 'string',
+      readOnly: true
+    },
+    project_request_count: {
+      type: 'string',
+      readOnly: true
+    },
     campaign: {
       type: 'string',
       format: 'uri',
@@ -1417,12 +1524,16 @@ export const FoiRequestListSchema = {
     'id',
     'is_foi',
     'jurisdiction',
+    'jurisdiction_name',
     'last_message',
     'last_modified_at',
     'law',
     'project',
+    'project_request_count',
+    'project_site_url',
     'public',
     'public_body',
+    'readable_status',
     'redacted_description',
     'reference',
     'refusal_reason',
@@ -1432,6 +1543,7 @@ export const FoiRequestListSchema = {
     'same_as_count',
     'slug',
     'status',
+    'status_representation',
     'tags',
     'title',
     'url',
@@ -1463,7 +1575,7 @@ export const GeoRegionSchema = {
     kind: {
       allOf: [
         {
-          $ref: '#/components/schemas/KindCfdEnum'
+          $ref: '#/components/schemas/KindDd3Enum'
         }
       ],
       title: 'Kind of Region'
@@ -1545,7 +1657,7 @@ export const GeoRegionDetailSchema = {
     kind: {
       allOf: [
         {
-          $ref: '#/components/schemas/KindCfdEnum'
+          $ref: '#/components/schemas/KindDd3Enum'
         }
       ],
       title: 'Kind of Region'
@@ -1688,6 +1800,14 @@ export const JurisdictionSchema = {
       format: 'uri',
       readOnly: true
     },
+    region_kind: {
+      type: 'string',
+      readOnly: true
+    },
+    region_kind_detail: {
+      type: 'string',
+      readOnly: true
+    },
     last_modified_at: {
       type: 'string',
       format: 'date-time',
@@ -1699,13 +1819,15 @@ export const JurisdictionSchema = {
     'last_modified_at',
     'name',
     'region',
+    'region_kind',
+    'region_kind_detail',
     'resource_uri',
     'site_url',
     'slug'
   ]
 } as const
 
-export const KindCfdEnumSchema = {
+export const KindDd3EnumSchema = {
   enum: [
     'country',
     'state',
@@ -1718,15 +1840,8 @@ export const KindCfdEnumSchema = {
     'admin_court_jurisdiction'
   ],
   type: 'string',
-  description: `* \`country\` - country
-* \`state\` - state
-* \`admin_district\` - administrative district
-* \`district\` - district
-* \`admin_cooperation\` - administrative cooperation
-* \`municipality\` - municipality
-* \`borough\` - borough
-* \`zipcode\` - zipcode
-* \`admin_court_jurisdiction\` - administrative court jurisdiction`
+  description:
+    '* `country` - country\n* `state` - state\n* `admin_district` - administrative district\n* `district` - district\n* `admin_cooperation` - administrative cooperation\n* `municipality` - municipality\n* `borough` - borough\n* `zipcode` - zipcode\n* `admin_court_jurisdiction` - administrative court jurisdiction'
 } as const
 
 export const MakeRequestSchema = {
@@ -1771,9 +1886,8 @@ export const MakeRequestSchema = {
 export const MaxResponseTimeUnitEnumSchema = {
   enum: ['day', 'working_day', 'month_de'],
   type: 'string',
-  description: `* \`day\` - Day(s)
-* \`working_day\` - Working Day(s)
-* \`month_de\` - Month(s) (DE)`
+  description:
+    '* `day` - Day(s)\n* `working_day` - Working Day(s)\n* `month_de` - Month(s) (DE)'
 } as const
 
 export const PageSchema = {
@@ -2032,6 +2146,35 @@ export const PaginatedDocumentListSchema = {
       type: 'array',
       items: {
         $ref: '#/components/schemas/Document'
+      }
+    }
+  }
+} as const
+
+export const PaginatedDocumentPortalListSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/DocumentPortal'
       }
     }
   }
@@ -2592,6 +2735,10 @@ export const PatchedFoiRequestListSchema = {
       format: 'uri',
       readOnly: true
     },
+    jurisdiction_name: {
+      type: 'string',
+      readOnly: true
+    },
     is_foi: {
       type: 'boolean',
       readOnly: true,
@@ -2672,6 +2819,14 @@ export const PatchedFoiRequestListSchema = {
     status: {
       $ref: '#/components/schemas/Status719Enum'
     },
+    status_representation: {
+      type: 'string',
+      readOnly: true
+    },
+    readable_status: {
+      type: 'string',
+      readOnly: true
+    },
     public_body: {
       allOf: [
         {
@@ -2709,6 +2864,14 @@ export const PatchedFoiRequestListSchema = {
     },
     project: {
       type: 'integer',
+      readOnly: true
+    },
+    project_site_url: {
+      type: 'string',
+      readOnly: true
+    },
+    project_request_count: {
+      type: 'string',
       readOnly: true
     },
     campaign: {
@@ -2888,17 +3051,8 @@ export const ProblemReportKindEnumSchema = {
     'mail_inauthentic'
   ],
   type: 'string',
-  description: `* \`message_not_delivered\` - Your message was not delivered.
-* \`attachment_broken\` - The attachments don't seem to work.
-* \`redaction_needed\` - More redactions are needed.
-* \`foi_help_needed\` - You need help to understand or reply to this message.
-* \`other\` - Something else...
-* \`not_foi\` - This is not a proper FOI request.
-* \`not_nice\` - Content is against netiquette.
-* \`info_outdated\` - Published information is outdated.
-* \`info_wrong\` - Published information is wrong.
-* \`bounce_publicbody\` - You received a bounce mail from the public body.
-* \`mail_inauthentic\` - Received mail does not pass authenticity checks.`
+  description:
+    "* `message_not_delivered` - Your message was not delivered.\n* `attachment_broken` - The attachments don't seem to work.\n* `redaction_needed` - More redactions are needed.\n* `foi_help_needed` - You need help to understand or reply to this message.\n* `other` - Something else...\n* `not_foi` - This is not a proper FOI request.\n* `not_nice` - Content is against netiquette.\n* `info_outdated` - Published information is outdated.\n* `info_wrong` - Published information is wrong.\n* `bounce_publicbody` - You received a bounce mail from the public body.\n* `mail_inauthentic` - Received mail does not pass authenticity checks."
 } as const
 
 export const PublicBodySchema = {
@@ -3021,7 +3175,8 @@ export const PublicBodySchema = {
       maxLength: 255
     },
     alternative_emails: {
-      nullable: true
+      type: 'string',
+      readOnly: true
     },
     wikidata_item: {
       type: 'string',
@@ -3034,6 +3189,7 @@ export const PublicBodySchema = {
     }
   },
   required: [
+    'alternative_emails',
     'categories',
     'classification',
     'geo',
@@ -3172,7 +3328,8 @@ export const PublicBodyListSchema = {
       maxLength: 255
     },
     alternative_emails: {
-      nullable: true
+      type: 'string',
+      readOnly: true
     },
     wikidata_item: {
       type: 'string',
@@ -3185,6 +3342,7 @@ export const PublicBodyListSchema = {
     }
   },
   required: [
+    'alternative_emails',
     'categories',
     'classification',
     'geo',
@@ -3212,12 +3370,8 @@ export const ResolutionEnumSchema = {
     'user_withdrew'
   ],
   type: 'string',
-  description: `* \`successful\` - Request Successful
-* \`partially_successful\` - Request partially successful
-* \`not_held\` - Information not held
-* \`refused\` - Request refused
-* \`user_withdrew_costs\` - Request was withdrawn due to costs
-* \`user_withdrew\` - Request was withdrawn`
+  description:
+    '* `successful` - Request Successful\n* `partially_successful` - Request partially successful\n* `not_held` - Information not held\n* `refused` - Request refused\n* `user_withdrew_costs` - Request was withdrawn due to costs\n* `user_withdrew` - Request was withdrawn'
 } as const
 
 export const SimpleCategorySchema = {
@@ -3376,17 +3530,15 @@ export const SimplePublicBodySchema = {
 export const StateEnumSchema = {
   enum: ['initial', 'receiving', 'saving', 'done'],
   type: 'string',
-  description: `* \`initial\` - Initial
-* \`receiving\` - Receiving
-* \`saving\` - Saving
-* \`done\` - Done`
+  description:
+    '* `initial` - Initial\n* `receiving` - Receiving\n* `saving` - Saving\n* `done` - Done'
 } as const
 
 export const Status719EnumSchema = {
   enum: ['awaiting_response', 'resolved'],
   type: 'string',
-  description: `* \`awaiting_response\` - awaiting_response
-* \`resolved\` - resolved`
+  description:
+    '* `awaiting_response` - awaiting_response\n* `resolved` - resolved'
 } as const
 
 export const UpdateDocumentSchema = {
@@ -3673,6 +3825,20 @@ export const DocumentDetailWritableSchema = {
   required: ['cover_image', 'page_template']
 } as const
 
+export const DocumentPortalWritableSchema = {
+  type: 'object',
+  properties: {
+    title: {
+      type: 'string',
+      maxLength: 250
+    },
+    description: {
+      type: 'string'
+    }
+  },
+  required: ['title']
+} as const
+
 export const FoiAttachmentWritableSchema = {
   type: 'object',
   properties: {
@@ -3927,7 +4093,7 @@ export const GeoRegionWritableSchema = {
     kind: {
       allOf: [
         {
-          $ref: '#/components/schemas/KindCfdEnum'
+          $ref: '#/components/schemas/KindDd3Enum'
         }
       ],
       title: 'Kind of Region'
@@ -3983,7 +4149,7 @@ export const GeoRegionDetailWritableSchema = {
     kind: {
       allOf: [
         {
-          $ref: '#/components/schemas/KindCfdEnum'
+          $ref: '#/components/schemas/KindDd3Enum'
         }
       ],
       title: 'Kind of Region'
@@ -4118,6 +4284,499 @@ export const PageAnnotationWritableSchema = {
       maximum: 2147483647,
       minimum: -2147483648,
       nullable: true
+    }
+  }
+} as const
+
+export const PaginatedCampaignListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/CampaignWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedCategoryListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/CategoryWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedClassificationListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/ClassificationWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedDocumentCollectionListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/DocumentCollectionWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedDocumentListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/DocumentWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedDocumentPortalListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/DocumentPortalWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedFoiAttachmentListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/FoiAttachmentWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedFoiLawListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/FoiLawWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedFoiMessageListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/FoiMessageWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedFoiRequestFollowListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/FoiRequestFollowWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedFoiRequestListListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/FoiRequestListWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedGeoRegionListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/GeoRegionWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedJurisdictionListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/JurisdictionWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedPageAnnotationListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/PageAnnotationWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedPageListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/PageWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedProblemReportListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/ProblemReportWritable'
+      }
+    }
+  }
+} as const
+
+export const PaginatedPublicBodyListListWritableSchema = {
+  type: 'object',
+  required: ['count', 'results'],
+  properties: {
+    count: {
+      type: 'integer',
+      example: 123
+    },
+    next: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=400&limit=100'
+    },
+    previous: {
+      type: 'string',
+      nullable: true,
+      format: 'uri',
+      example: 'http://api.example.org/accounts/?offset=200&limit=100'
+    },
+    results: {
+      type: 'array',
+      items: {
+        $ref: '#/components/schemas/PublicBodyListWritable'
+      }
     }
   }
 } as const
@@ -4382,9 +5041,6 @@ export const PublicBodyWritableSchema = {
       type: 'string',
       maxLength: 255
     },
-    alternative_emails: {
-      nullable: true
-    },
     wikidata_item: {
       type: 'string',
       maxLength: 50
@@ -4455,9 +5111,6 @@ export const PublicBodyListWritableSchema = {
     source_reference: {
       type: 'string',
       maxLength: 255
-    },
-    alternative_emails: {
-      nullable: true
     },
     wikidata_item: {
       type: 'string',
